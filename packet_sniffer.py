@@ -12,7 +12,10 @@ def sniffer(interface):
 def process_sniffed_packet(packet):
     if packet.haslayer(http.HTTPRequest):
         if packet.haslayer(scapy.Raw):
-            print(packet[scapy.Raw].load)
+            # print(packet[scapy.Raw].load)
+            load = packet[scapy.Raw].load
+            if b'uname' in load:
+                print(load)
 
 
 sniffer('eth0')
