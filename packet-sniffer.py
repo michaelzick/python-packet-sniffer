@@ -4,11 +4,12 @@ import scapy.all as scapy
 
 
 def process_sniffed_packet(packet):
-    print(packet)
+    packet.show()
 
 
 def sniffer(interface):
-    scapy.sniff(iface=interface, store=False, prn=process_sniffed_packet)
+    scapy.sniff(iface=interface, store=False,
+                prn=process_sniffed_packet, filter='tcp')
 
 
 sniffer('eth0')
