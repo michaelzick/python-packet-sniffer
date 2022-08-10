@@ -1,15 +1,18 @@
 #!/usr/bin/env python3
 
 import scapy.all as scapy
-
-
-def process_sniffed_packet(packet):
-    packet.show()
+from scapy.layers import http
 
 
 def sniffer(interface):
     scapy.sniff(iface=interface, store=False,
-                prn=process_sniffed_packet, filter='tcp')
+                prn=process_sniffed_packet)
+
+
+def process_sniffed_packet(packet):
+    if packet.haslayer(http.HTTPRequest):
+        if packet.haslayer(scapy.Raw):
+            print(packet[scapy.Raw].load)
 
 
 sniffer('eth0')
