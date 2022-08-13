@@ -32,7 +32,7 @@ def process_sniffed_packet(packet):
         login_info = get_login_info(packet)
         if login_info:
             print(
-                '\n\n[+\] Possible username and password: ' + login_info + '\n\n')
+                '\n\n[+] Possible username and password: ' + login_info + '\n\n')
 
 
 sniffer('eth0')
